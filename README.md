@@ -2,13 +2,14 @@
 
 **By Rui Pinheiro**
 
-A Python script for batch re-encoding many *.flac files recursively. This is useful to make sure that your whole FLAC library is using the latest version of the FLAC encoder, with maximum compression.
+A Python 2.7 script for batch re-encoding many *.flac files recursively. This is useful to make sure that your whole FLAC library is using the latest version of the FLAC encoder, with maximum compression.
 
 Files can be skipped if the encoder matches a user-defined vendor string (i.e., they were already encoded using the latest FLAC encoder).
 
 ## Usage
 
-Place `metaflac` and `flac` in your search path, and then run (only tested under Python 2.7)\
+Place `metaflac` and `flac` in your search path, and then run:
+
 `reencode.py [-h] [-f <folder>] [-m <mask>] [--check-vendor] [-v [--vendor-string <vendor>]] [--no-verify] [--flac <flac-path>] [--metaflac <metaflac-path>]`
 
 | Parameter       | Description   |
