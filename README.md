@@ -25,10 +25,10 @@ Place `metaflac` and `flac` in your search path, and then run:
 
 ## Implementation
 
-This script first creates a list of all the files inside `<folder>`. If using `-v`, `metaflac --show-vendor-tag` is compared with `<vendor>` in order to detect which files are using different FLAC encoder versions.
-Once the list is created, each file will be re-encoded using `<flac-path> -s -V <file> --force --best`. This uses the best possible compression level, and overwrites the input file after the output is verified.
+This script first creates a list of all the files inside `<folder>`. If using `-v`, `metaflac --show-vendor-tag <file>` is compared with `<vendor>` in order to detect which files were encoded using different FLAC encoder versions.
+Once the list is created, each file is re-encoded using `<flac-path> -s -V <file> --force --best`. This uses the best possible compression level, and overwrites the input file only after the output is verified.
 
-**Note:** The use of `-V` in the FLAC encoding parameters means that encoding takes longer, but any problems during encoding will be detected before the original file is overwritten. If you do not mind the (low) risk, and want the whole re-encoding process to complete faster, use `--no-verify` to omit the `-V`.
+**Note:** The use of `-V` in the FLAC encoding parameters means that encoding takes longer, but any problems during encoding will be detected before the original file is overwritten. If you do not mind the (low) risk of file corruption due to something going wrong during the encoding process, and want it to complete faster, use `--no-verify` to omit the `-V` encoding parameter.
 
 ## License
 

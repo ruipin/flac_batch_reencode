@@ -1,9 +1,17 @@
 #!/usr/bin/python
 
-# FLAC Batch Re-encode script
-# Version 1.0 - 6 May 2016
-#
-# Author: Rui Pinheiro
+########################################################################
+#######################  FLAC Batch Re-encode  #########################
+# A Python 2.7 script for batch re-encoding many *.flac files.         #
+# This is useful to make sure that your whole FLAC library is using    #
+# the latest version of the FLAC encoder, with maximum compression.    #
+# Files can be skipped if the encoder matches a user-defined vendor    #
+# string (i.e., they were already encoded using the latest FLAC        #
+# encoder).                                                            #
+#                                                                      #
+# Version 1.0 - 6 May 2016                                             #
+# Author: Rui Pinheiro                                                 #
+########################################################################
 
 ########################################################################
 # This program is free software: you can redistribute it and/or modify #
