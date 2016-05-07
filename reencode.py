@@ -125,7 +125,7 @@ def compare_vendor_string(path, vendor_string, metaflac_path):
 	res = (vendor == vendor_string)
 	logger.debug("Vendor: '%s' %s", vendor, 'matches desired' if res else 'differs from desired')
 	
-	return 
+	return res
 
 def get_file_list(folder, mask, check_vendor, vendor_string, metaflac_path):
 	logger = logging.getLogger('get_file_list')
