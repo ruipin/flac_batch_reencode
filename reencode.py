@@ -164,16 +164,28 @@ def reencode_file(file, verify, flac_path):
 	if SILENT_FLAC:
 		cmd.append('-s')
 	
+	proc = False
 	try:
-		cmd_out = subprocess.check_output(cmd, stderr=subprocess.STDOUT).strip()
-	except subprocess.CalledProcessError as e:                           
+		proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+		(cmd_out, cmd_err) = proc.communicate()
+	except KeyboardInterrupt as e:
+		logger.critical("Keyboard Interrupt (Ctrl-C) detected. Waiting for encoder to cancel...")
+		if proc:
+			proc.wait()
+		tmp_filename = file + ".tmp,fl-ac+en'c"
+		if os.path.exists(tmp_filename):
+			os.remove(tmp_filename)
+		logger.critical("Exiting.")
+		sys.exit(-3)
+	
+	if proc.returncode != 0:
 		logger.critical("Exited with error code: %d\n%s", e.returncode, e.output)
 		sys.exit(-2)
 	
-	logger.debug("Command '%s':\n%s", cmd, cmd_out)
+	cmd_out = cmd_out.strip()
+	cmd_err = cmd_err.strip()
 	
-	if SILENT_FLAC and cmd_out:
-		logger.warning("Output was not empty: %s", cmd_out)
+	logger.debug("Command '%s' STDOUT:\n%s\nSTDERR: %s", cmd, cmd_out, cmd_err)
 
 def reencode_files(files, root_folder, verify, flac_path):
 	logger = logging.getLogger('reencode_files')
