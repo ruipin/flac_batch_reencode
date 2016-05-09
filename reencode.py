@@ -256,6 +256,9 @@ def check_proc_success(procs, proc_tuple):
 		procs (list[tuple[string, Popen]]): File names and corresponding Popen objects
 		proc_typle (tuple[string, Popen]): File name and Popen object to check (must be a member of 'procs')
 	"""
+	logger = logging.getLogger('check_proc_success')
+	logger.setLevel(logging.INFO)
+	
 	(file, proc) = proc_tuple
 	success = finish_reencode_file(file, proc)
 	procs.remove(proc_tuple)
