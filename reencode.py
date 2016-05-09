@@ -179,7 +179,7 @@ def reencode_file(file, verify, flac_path):
 		sys.exit(-3)
 	
 	if proc.returncode != 0:
-		logger.critical("Exited with error code: %d\n%s", e.returncode, e.output)
+		logger.critical("Exited with error code: %d\nSTDOUT:\n%s\nSTDERR: %s", proc.returncode, cmd_out, cmd_err)
 		sys.exit(-2)
 	
 	cmd_out = cmd_out.strip()
