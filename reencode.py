@@ -44,8 +44,8 @@ def init_logging():
 
 # Constants
 DEFAULT_VENDOR_STRING = 'reference libFLAC 1.3.1 20141125' # for '--vendor'
-METAFLAC_EXECUTABLE = 'metaflac'
-FLAC_EXECUTABLE = 'flac'
+METAFLAC_EXECUTABLE = './metaflac'
+FLAC_EXECUTABLE = './flac'
 
 # Debug constants
 SILENT_FLAC = True
@@ -263,18 +263,32 @@ def check_proc_success(procs, proc_tuple):
 	success = finish_reencode_file(file, proc)
 	procs.remove(proc_tuple)
 	if not success:
-		wait_for_terminate(procs)
-		logger.critical("Exiting.")
-		sys.exit(-6)
+		# Ask user what they want to do
+		has_input = False
+		user_input = ""
+		while not has_input:
+			user_input = raw_input("Encoding failed. Do you wish to [r]etry, [s]kip or [a]bort? ").lower()
+			if len(user_input) != 1 or user_input not in ('r', 's', 'a'):
+				print "Invalid answer '%s'." % (user_input)
+			else:
+				has_input = True
+
+		# abort
+		if user_input == 'a':
+			wait_for_terminate(procs)
+			logger.critical("Exiting.")
+			sys.exit(-6)
+
+		# retry
+		elif user_input == 'r':
+			procs.append(start_reencode_file(file))
+
 
 def reencode_files(files):
 	"""Re-encodes a list of files.
 
 	Args:
 		files (list[str]): List of file paths to re-encode.
-	
-	Returns:
-		bool: Whether 'proc' terminated successfuly.
 	"""
 	
 	logger = logging.getLogger('reencode_files')
