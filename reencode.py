@@ -232,7 +232,10 @@ def finish_reencode_file(file, proc):
 	logger.debug("File '%s' STDOUT:\n%s\nSTDERR: %s", file, cmd_out, cmd_err)
 	
 	if SILENT_FLAC and (cmd_out or cmd_err):
-		logger.warning("File '%s' - output was not empty:\nSTDOUT: %s\nSTDERR: %s", file, cmd_out, cmd_err)
+		if "Compression failed (ratio" not in cmd_err:
+			logger.warning("File '%s' - output was not empty:\nSTDOUT: %s\nSTDERR: %s", file, cmd_out, cmd_err)
+		else:
+			logger.warning("File '%s': Could not compress further", file)
 	
 	return True
 
