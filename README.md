@@ -2,7 +2,7 @@
 
 **By Rui Pinheiro**
 
-A Python 2.7 script for batch parallel re-encoding of many FLAC files. This is useful to make sure that your whole FLAC library is using the latest version of the FLAC encoder, with maximum compression.
+A Python 3 script for batch parallel re-encoding of many FLAC files. This is useful to make sure that your whole FLAC library is using the latest version of the FLAC encoder, with maximum compression.
 
 ## Usage
 
@@ -16,11 +16,8 @@ Place `metaflac` and `flac` in your search path, and then run:
 | `-f <folder>` \ `--folder <folder>`   |    Root folder path for recursive search (default: `.`). |
 | `-m <mask>` / `--mask <mask>`     |    File mask (default: `*.flac`). |
 | `-p` / `--parallel` |    Maximum simultaneous encoder processes (default: `max([CPU count]-1,1)`). |
-| `-v` / `--vendor`   |    Skip file if vendor string matches `<vendor>` (requires `metaflac`). |
-| `--vendor-string <vendor>` |    Desired vendor string for `-v` (default: `reference libFLAC 1.3.1 20141125`). |
 | `--no-verify`     |    Do not verify output for encoding errors before overwriting original files. Faster, but *in rare cases could result in corrupt files*. |
 | `--flac <flac-path>` | Path to the `flac` executable (default: `flac`). |
-| `--metaflac <metaflac-path>` | Path to the `metaflac` executable (only required if using `-v`, default: `metaflac`). |
 
 ## Implementation
 
