@@ -266,7 +266,7 @@ class ReencodeJobList(object):
             has_input = False
             user_input = ""
             while not has_input:
-                user_input = raw_input("Encoding failed. Do you wish to [r]etry, [s]kip or [a]bort? ").lower()
+                user_input = input("Encoding failed. Do you wish to [r]etry, [s]kip or [a]bort? ").lower()
                 if len(user_input) != 1 or user_input not in ('r', 's', 'a'):
                     print("Invalid answer '%s'." % (user_input))
                 else:
