@@ -6,7 +6,7 @@
     This is useful to make sure that your whole FLAC library is using
     the latest version of the FLAC encoder, with maximum compression.
 
-    Version 1.3 - 29 Jun 2019
+    Version 1.4 - 13 Jun 2021
     Author: Rui Pinheiro
 """
 
@@ -26,6 +26,8 @@
 """
 
 import sys, codecs, getopt, logging, os, fnmatch, subprocess, time, multiprocessing
+
+
 
 ######################################
 # Logging
@@ -47,6 +49,7 @@ REENCODE_TIMEOUT = None
 SILENT_FLAC = True
 
 
+
 ######################################
 # Main Implementation
 def usage(argv_0, exit_val):
@@ -60,6 +63,8 @@ def usage(argv_0, exit_val):
     print("\t--no-verify     :    Do not verify output for encoding errors before overwriting original files. Faster, but in rare cases could result in corrupt files.")
     print("\t--flac          :    Path to the 'flac' executable (default: 'flac').")
     sys.exit(exit_val)
+
+
 
 def main(argv):
     init_logging()
@@ -106,6 +111,8 @@ def main(argv):
         reencode_files(files)
 
     logging.info('Finished.')
+
+
 
 def get_file_list(root_folder, file_mask):
     """Recursively searches a folder for a specific file mask, and creates a list of all such files.
@@ -224,6 +231,7 @@ class ReencodeJob(object):
         return str(self.file)
 
 
+
 class ReencodeJobList(object):
     def __init__(self):
         self.log = logging.getLogger('ReencodeJobList')
@@ -275,7 +283,7 @@ class ReencodeJobList(object):
             # abort
             if user_input == 'a':
                 self.wait()
-                logger.critical("Exiting.")
+                self.log.critical("Exiting.")
                 sys.exit(-6)
 
             # retry
@@ -313,6 +321,7 @@ class ReencodeJobList(object):
         
     def __str__(self):
         return str(self.jobs)
+
 
 
 def reencode_files(files):
